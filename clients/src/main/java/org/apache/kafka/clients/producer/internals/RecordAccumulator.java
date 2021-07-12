@@ -63,6 +63,12 @@ import org.slf4j.Logger;
  * The accumulator uses a bounded amount of memory and append calls will block when that memory is exhausted, unless
  * this behavior is explicitly disabled.
  */
+
+/**
+ * RecordAccumulator本质上是一个ConcurrentMap
+ * ConcurrentMap<TopicPartition, Deque<ProducerBatch>> batches;
+ * 一个partition一个Batch。batch满了之后，会唤醒Sender线程，发送消息
+ */
 public final class RecordAccumulator {
 
     private final Logger log;
